@@ -3,4 +3,5 @@
 3) installing all the dependecies and dev dependecies
 4) create our main entry file(server.js)
 5) create a config folder where db.js is a file and mongoose in connected there
-6) create api routes (creating a folder in the root called routes)
+6) create api routes (creating a folder in the root called routes) & connected them to server.js
+7) creating a user model in a models folder
