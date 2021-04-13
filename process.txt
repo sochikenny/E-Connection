@@ -1,0 +1,4 @@
+1) create my git ignore file (get this out of the way to ignore node modules)
+2) create package.json using npm init
+3) installing all the dependecies and dev dependecies
+4) create our main entry file(server.js)
