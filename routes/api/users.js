@@ -8,7 +8,7 @@ const User = require('../../models/User')
 const gravatar = require('gravatar')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-let jwtToken = process.env.JWTSECRET
+const jwtToken = process.env.JWTSECRET
 
 //@route    POST api/users
 //@desc     Register user
