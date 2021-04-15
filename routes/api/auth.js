@@ -74,4 +74,4 @@ async (req, res)=> {
 
 module.exports = router 
 
-//file used to get registered user with already verified token from auth middleware
+//file used to find registered user with already verified token from auth middleware
