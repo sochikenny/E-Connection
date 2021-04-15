@@ -75,3 +75,4 @@ async (req, res)=> {
 module.exports = router 
 
 //file used to find registered user with already verified token from auth middleware
+//Basically, this file is for signing in with email & password
