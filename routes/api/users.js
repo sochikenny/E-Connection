@@ -78,3 +78,5 @@ async (req, res)=> {
 })
 
 module.exports = router 
+
+//you're basically creating a user(registering a user here)
