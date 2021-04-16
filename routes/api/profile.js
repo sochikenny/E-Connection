@@ -1,11 +1,14 @@
 //Bring in express
 //create or updating a profile
 const express = require('express')
+const request = require('request')
 const router = express.Router()
 const auth = require('../../middleware/auth')
 const { check, validationResult } = require('express-validator')
 const Profile = require('../../models/Profile')
 const User = require('../../models/User')
+const githubClientId = process.env.GITHUB_CLIENTID
+const githubSecret = process.env.GITHUB_SECRET
 
 //@route    GET api/profile/me (just want to get my profile based on what's in the web token)
 //@desc     Get current users profile
@@ -323,5 +326,32 @@ router.delete('/education/:edu_id', auth, async (req, res)=>{
     }
 })
 
+//@route    GET api/profile/github/:username
+//@desc     Get user repos from Github
+//@access   Public
+router.get('/github/:username', (req, res) => {
+    try {
+        const options = {
+            uri: `https://api.github.com/users/${req.params.username}/repos?per_page=8&
+            sort=created:asc&client_id=${githubClientId}&client_secret=${githubSecret}`,
+            method: 'GET',
+            headers: { 'user-agent': 'node.js'}
+        }
+
+        request(options, (error, response, body) => {
+            if(error) console.error(error)
+
+            if(response.statusCode !== 200){
+                return res.status(404).json({ msg: 'No Github profile found' })
+            }
+
+            res.json(JSON.parse(body))
+        })
+
+    } catch (err) {
+        console.error(err.message)
+        res.status(500).send('Server Error')
+    }
+})
 
 module.exports = router 
