@@ -11,7 +11,7 @@ const User = require('../../models/User')
 //@route    POST api/posts
 //@desc     Create a post
 //@access   Private
-router.get('/', [ auth, 
+router.post('/', [ auth, 
     [
         check('text', 'Text is required')
             .not()
