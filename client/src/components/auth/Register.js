@@ -1,7 +1,11 @@
 import React, { Fragment, useState } from 'react'
+import { connect } from 'react-redux' //bring in connect to work with redux
 import { Link } from 'react-router-dom'
+import { setAlert } from '../../actions/alert' //bring in set alert action
+import { register } from '../../actions/auth'
+import PropTypes from 'prop-types';
 
-const Register = () => {
+const Register = ({ setAlert, register }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -16,7 +20,7 @@ const Register = () => {
     const onSubmit = async e => {
         e.preventDefault()
         if(password !== password2){
-            console.log('Passwords do not match')
+            setAlert('Passwords do not match', 'danger')
         }else{
             // const newUser = {
             //     name,
@@ -38,7 +42,7 @@ const Register = () => {
             // } catch(err) {
             //     console.error(err.response.data)
             // }
-            console.log('Success')
+            register({ name, email, password })
         }
     }
 
@@ -54,7 +58,7 @@ const Register = () => {
             name="name" 
             value={name} 
             onChange = { e => onChange(e)}
-            required />
+             />
         </div>
         <div className="form-group">
           <input type="email" 
@@ -62,7 +66,7 @@ const Register = () => {
             name="email" 
             value={email} 
             onChange = { e => onChange(e)}  
-            required />
+             />
           <small className="form-text"
             >This site uses Gravatar so if you want a profile image, use a
             Gravatar email</small
@@ -75,7 +79,7 @@ const Register = () => {
             name="password"
             value={password} 
             onChange = { e => onChange(e)}
-            minLength="6"
+            // minLength="6"
           />
         </div>
         <div className="form-group">
@@ -85,7 +89,7 @@ const Register = () => {
             name="password2"
             value={password2} 
             onChange = { e => onChange(e)}
-            minLength="6"
+            // minLength="6"
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
@@ -95,6 +99,17 @@ const Register = () => {
       </p>
         </Fragment>
     )
+} 
+
+
+
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 }
 
-export default Register
+
+export default connect(null, { setAlert, register })(Register) 
+
+//export connect set alert action in order to use it which makes it available within PROPS 
+//up top, we then destructor it and call it when the passwords did not match
